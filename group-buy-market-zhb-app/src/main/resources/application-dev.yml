@@ -36,7 +36,7 @@ mybatis:
 #  config-location:  classpath:/mybatis/config/mybatis-config.xml  # 两种配置方式不能同时存在，只能使用一种配置方式
   configuration:
     map-underscore-to-camel-case: true
-#    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 输出查询的sql语句，用于调试
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 输出查询的sql语句，用于调试
 
 # 日志
 logging:

@@ -10,4 +10,7 @@ import java.util.List;
 public interface IGroupBuyDiscountDao {
 
     List<GroupBuyDiscount> queryGroupBuyDiscountList();
+
+    GroupBuyDiscount queryGroupBuyDiscountByActivityDiscountId(String disscountId);
+
 }

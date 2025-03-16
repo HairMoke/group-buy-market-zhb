@@ -9,4 +9,6 @@ import java.util.List;
 public interface IGroupBuyActivateDao {
 
     List<GroupBuyActivity> queryGroupBuyActiveList();
+
+    GroupBuyActivity queryGroupBuyActivityByActivity(GroupBuyActivity groupBuyActivity);
 }
