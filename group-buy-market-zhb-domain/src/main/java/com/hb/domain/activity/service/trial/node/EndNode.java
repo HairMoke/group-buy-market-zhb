@@ -23,18 +23,16 @@ public class EndNode extends AbstractGroupBuyMarketSupport<MarketProductEntity, 
     protected TrialBalanceEntity doApply(MarketProductEntity requestParameter, DefaultActivityStrategyFactory.DynamicContext dynamicContext) throws Exception {
         log.info("拼团商品查询试算服务-EndNode userId:{} requestParameter:{}", requestParameter.getUserId(), JSON.toJSONString(requestParameter));
 
+        // 拼团活动配置
         GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = dynamicContext.getGroupBuyActivityDiscountVO();
+
+        // 商品信息
         SkuVO skuVO = dynamicContext.getSkuVO();
 
         // 折扣价格
         BigDecimal deductionPrice = dynamicContext.getDeductionPrice();
 
-//         返回空结果
-        /**
-         * 返回的数据可以由动态上下文中的结果进行封装。
-         *
-         * 暂时咱们这里只把可以获取到的数据做一个处理。关于优惠金额以及可见性等参数mock写入即可。
-         */
+        // 返回空结果
         return TrialBalanceEntity.builder()
                 .goodsId(skuVO.getGoodsId())
                 .goodsName(skuVO.getGoodsName())
@@ -43,8 +41,8 @@ public class EndNode extends AbstractGroupBuyMarketSupport<MarketProductEntity, 
                 .targetCount(groupBuyActivityDiscountVO.getTarget())
                 .startTime(groupBuyActivityDiscountVO.getStartTime())
                 .endTime(groupBuyActivityDiscountVO.getEndTime())
-                .isVisible(false)
-                .isEnable(false)
+                .isVisible(dynamicContext.isVisible())
+                .isEnable(dynamicContext.isEnable())
                 .build();
     }
 

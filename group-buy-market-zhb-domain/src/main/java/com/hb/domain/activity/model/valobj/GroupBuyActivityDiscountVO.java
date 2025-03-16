@@ -1,9 +1,12 @@
 package com.hb.domain.activity.model.valobj;
 
 
+import com.hb.types.common.Constants;
 import lombok.*;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.Objects;
 
 @Getter
 @Builder
@@ -56,6 +59,33 @@ public class GroupBuyActivityDiscountVO {
     /** 人群标签规则范围（多选；1可见限制、2参与限制） */
     private String tagScope;
 
+    /**
+     * 可见限制
+     * 只要存在这样一个值， 那么首次获得的是默认值就是false
+     * 可见限制；方法聚合到到类中，判断是否配置了1。如果配置了，那么默认这个对应的值的结果就是 false，之后在判断是否在人群范围内，如果在人群范围内则为 true。
+     * @return
+     */
+    public boolean isVisible(){
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if(split.length > 0 && Objects.equals(split[0], "1") && StringUtils.isNotBlank(split[0])) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * 参与限制
+     * 只要存在这样一个值，那么首次获得的默认值就是false
+     * 参与限制；方法聚合到到类中，判断是否配置了2。如果配置了，那么默认这个对应的值的结果就是 false，之后在判断是否在人群范围内，如果在人群范围内则为 true。
+     * @return
+     */
+    public boolean isEnable(){
+        String[] split = this.tagScope.split(Constants.SPLIT);
+        if(split.length == 2 && Objects.equals(split[1], "2") && StringUtils.isNotBlank(split[1])) {
+            return false;
+        }
+        return true;
+    }
 
     @Getter
     @Builder
