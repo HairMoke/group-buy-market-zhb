@@ -1,4 +1,4 @@
-package com.hb.domain.activity.model;
+package com.hb.domain.activity.model.valobj;
 
 import lombok.*;
 

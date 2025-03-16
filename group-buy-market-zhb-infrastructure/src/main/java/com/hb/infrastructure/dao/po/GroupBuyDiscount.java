@@ -1,5 +1,6 @@
 package com.hb.infrastructure.dao.po;
 
+import com.hb.domain.activity.model.valobj.DiscountTypeEnum;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

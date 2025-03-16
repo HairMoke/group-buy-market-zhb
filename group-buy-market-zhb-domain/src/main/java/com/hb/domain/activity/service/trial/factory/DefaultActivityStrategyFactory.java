@@ -1,7 +1,7 @@
 package com.hb.domain.activity.service.trial.factory;
 
-import com.hb.domain.activity.model.GroupBuyActivityDiscountVO;
-import com.hb.domain.activity.model.SkuVO;
+import com.hb.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import com.hb.domain.activity.model.valobj.SkuVO;
 import com.hb.domain.activity.model.entity.MarketProductEntity;
 import com.hb.domain.activity.model.entity.TrialBalanceEntity;
 import com.hb.domain.activity.service.trial.node.RootNode;
@@ -11,6 +11,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
 
 @Service
 public class DefaultActivityStrategyFactory {
@@ -34,5 +36,7 @@ public class DefaultActivityStrategyFactory {
         private GroupBuyActivityDiscountVO groupBuyActivityDiscountVO;
         // 商品信息
         private SkuVO skuVO;
+        // 折扣价格
+        private BigDecimal deductionPrice;
     }
 }

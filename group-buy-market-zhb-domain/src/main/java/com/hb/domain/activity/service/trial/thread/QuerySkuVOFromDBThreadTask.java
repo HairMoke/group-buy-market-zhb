@@ -1,7 +1,7 @@
 package com.hb.domain.activity.service.trial.thread;
 
 import com.hb.domain.activity.adapter.repository.IActivityRepository;
-import com.hb.domain.activity.model.SkuVO;
+import com.hb.domain.activity.model.valobj.SkuVO;
 
 import java.util.concurrent.Callable;
 

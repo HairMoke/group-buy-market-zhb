@@ -1,15 +1,15 @@
 package com.hb.infrastructure.adapter.repository;
 
 import com.hb.domain.activity.adapter.repository.IActivityRepository;
-import com.hb.domain.activity.model.GroupBuyActivityDiscountVO;
-import com.hb.domain.activity.model.SkuVO;
+import com.hb.domain.activity.model.valobj.DiscountTypeEnum;
+import com.hb.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import com.hb.domain.activity.model.valobj.SkuVO;
 import com.hb.infrastructure.dao.IGroupBuyActivateDao;
 import com.hb.infrastructure.dao.IGroupBuyDiscountDao;
 import com.hb.infrastructure.dao.ISkuDao;
 import com.hb.infrastructure.dao.po.GroupBuyActivity;
 import com.hb.infrastructure.dao.po.GroupBuyDiscount;
 import com.hb.infrastructure.dao.po.Sku;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.Resource;
@@ -42,7 +42,7 @@ public class ActivityRepository implements IActivityRepository {
         GroupBuyActivityDiscountVO.GroupBuyDiscount groupBuyDiscount = GroupBuyActivityDiscountVO.GroupBuyDiscount.builder()
                 .discountName(groupBuyDiscountRes.getDiscountName())
                 .discountDesc(groupBuyDiscountRes.getDiscountDesc())
-                .discountType(groupBuyDiscountRes.getDiscountType())
+                .discountType(DiscountTypeEnum.get(groupBuyDiscountRes.getDiscountType()))
                 .marketPlan(groupBuyDiscountRes.getMarketPlan())
                 .marketExpr(groupBuyDiscountRes.getMarketExpr())
                 .tagId(groupBuyDiscountRes.getTagId())

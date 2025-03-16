@@ -1,7 +1,7 @@
 package com.hb.domain.activity.adapter.repository;
 
-import com.hb.domain.activity.model.GroupBuyActivityDiscountVO;
-import com.hb.domain.activity.model.SkuVO;
+import com.hb.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import com.hb.domain.activity.model.valobj.SkuVO;
 
 public interface IActivityRepository {
 

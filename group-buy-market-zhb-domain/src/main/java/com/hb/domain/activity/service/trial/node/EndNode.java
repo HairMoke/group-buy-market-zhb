@@ -1,8 +1,8 @@
 package com.hb.domain.activity.service.trial.node;
 
 import com.alibaba.fastjson.JSON;
-import com.hb.domain.activity.model.GroupBuyActivityDiscountVO;
-import com.hb.domain.activity.model.SkuVO;
+import com.hb.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
+import com.hb.domain.activity.model.valobj.SkuVO;
 import com.hb.domain.activity.model.entity.MarketProductEntity;
 import com.hb.domain.activity.model.entity.TrialBalanceEntity;
 import com.hb.domain.activity.service.trial.AbstractGroupBuyMarketSupport;
