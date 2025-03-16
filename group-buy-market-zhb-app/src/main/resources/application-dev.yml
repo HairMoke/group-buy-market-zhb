@@ -38,6 +38,23 @@ mybatis:
     map-underscore-to-camel-case: true
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl  # 输出查询的sql语句，用于调试
 
+# Redis
+redis:
+  sdk:
+    config:
+      host: 192.168.10.88
+      port: 6399
+      password: 123456
+      pool-size: 10
+      min-idle-size: 5
+      idle-timeout: 30000
+      connect-timeout: 5000
+      retry-attempts: 3
+      retry-interval: 1000
+      ping-interval: 60000
+      keep-alive: true
+
+
 # 日志
 logging:
   level:
