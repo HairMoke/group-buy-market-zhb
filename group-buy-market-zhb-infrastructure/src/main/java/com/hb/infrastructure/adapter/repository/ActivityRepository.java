@@ -13,6 +13,7 @@ import com.hb.infrastructure.dao.po.GroupBuyActivity;
 import com.hb.infrastructure.dao.po.GroupBuyDiscount;
 import com.hb.infrastructure.dao.po.SCSkuActivity;
 import com.hb.infrastructure.dao.po.Sku;
+import com.hb.infrastructure.dcc.DCCService;
 import com.hb.infrastructure.redis.IRedisService;
 import org.redisson.api.RBitSet;
 import org.springframework.stereotype.Repository;
@@ -37,6 +38,9 @@ public class ActivityRepository implements IActivityRepository {
 
     @Resource
     private IRedisService redisService;
+
+    @Resource
+    private DCCService dccService;
 
 
     @Override
@@ -116,5 +120,15 @@ public class ActivityRepository implements IActivityRepository {
         if(!bitSet.isExists()) return true;
         // 判断用户是否在人群中
         return bitSet.get(redisService.getIndexFromUserId(userId));
+    }
+
+    @Override
+    public boolean downgradeSwitch() {
+        return dccService.isDowngradeSwitch();
+    }
+
+    @Override
+    public boolean curRange(String userId) {
+        return dccService.isCutRange(userId);
     }
 }
