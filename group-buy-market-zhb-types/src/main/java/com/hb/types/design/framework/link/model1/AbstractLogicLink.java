@@ -1,0 +1,28 @@
+package com.hb.types.design.framework.link.model1;
+
+
+/**
+ *
+ AbstractLogicLink 的过程是封装添加节点和执行 next 下一个节点的方法。
+ * @param <T>
+ * @param <D>
+ * @param <R>
+ */
+public abstract class AbstractLogicLink<T, D, R> implements ILogicLink<T, D, R> {
+    private ILogicLink<T, D, R> next;
+
+    @Override
+    public ILogicLink<T, D, R> next(){
+        return next;
+    }
+
+    @Override
+    public ILogicLink<T, D, R> appendNext(ILogicLink<T, D, R> next) {
+        this.next = next;
+        return next;
+    }
+
+    protected R next(T requestParameter, D dynamicContext) throws Exception{
+        return next.apply(requestParameter, dynamicContext);
+    }
+}
