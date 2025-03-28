@@ -1,10 +1,7 @@
 package com.hb.domain.trade.adapter.repository;
 
 import com.hb.domain.trade.model.aggregate.GroupBuyOrderAggregate;
-import com.hb.domain.trade.model.entity.MarketPayOrderEntity;
-import com.hb.domain.trade.model.entity.PayActivityEntity;
-import com.hb.domain.trade.model.entity.PayDiscountEntity;
-import com.hb.domain.trade.model.entity.UserEntity;
+import com.hb.domain.trade.model.entity.*;
 import com.hb.domain.trade.model.valobj.GroupBuyProgressVO;
 
 /**
@@ -33,4 +30,8 @@ public interface ITradeRepository {
      * @return
      */
     MarketPayOrderEntity lockMarketPayOrder(GroupBuyOrderAggregate groupBuyOrderAggregate);
+
+    GroupBuyActivityEntity queryGroupBuyActivityEntityByActivityId(Long activityId);
+
+    Integer queryOrderCountByActivityId(Long activityId, String userId);
 }

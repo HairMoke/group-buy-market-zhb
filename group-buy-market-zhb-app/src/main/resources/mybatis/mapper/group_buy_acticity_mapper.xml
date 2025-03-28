@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hb.infrastructure.dao.IGroupBuyActivateDao">
 
+
     <resultMap id="dataMap" type="com.hb.infrastructure.dao.po.GroupBuyActivity">
         <id column="id" property="id"/>
         <result column="activity_id" property="activityId"/>
@@ -51,6 +52,24 @@
         from group_buy_activity
         where activity_id = #{activityId}
           and status = 1
+    </select>
+
+
+    <select id="queryGroupBuyActivityByActivityId" parameterType="java.lang.Long" resultMap="dataMap">
+        select activity_id,
+               activity_name,
+               discount_id,
+               group_type,
+               take_limit_count,
+               target,
+               valid_time,
+               status,
+               start_time,
+               end_time,
+               tag_id,
+               tag_scope
+        from group_buy_activity
+        where activity_id = #{activityId}
     </select>
 
 

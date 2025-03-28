@@ -33,4 +33,7 @@ public class GroupBuyOrderAggregate {
      */
     private PayDiscountEntity payDiscountEntity;
 
+    /** 已参与拼团量 */
+    private Integer userTakeOrderCount;
+
 }
