@@ -149,6 +149,8 @@ public class DCCValueBeanFactory implements BeanPostProcessor {
             }catch (Exception e){
                 throw new RuntimeException(e);
             }
+
+            dccObjGroup.put(key, targetBeanObject);
         }
 
         return bean;

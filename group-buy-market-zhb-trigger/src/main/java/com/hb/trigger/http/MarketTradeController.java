@@ -8,7 +8,6 @@ import com.hb.api.response.Response;
 import com.hb.domain.activity.model.entity.MarketProductEntity;
 import com.hb.domain.activity.model.entity.TrialBalanceEntity;
 import com.hb.domain.activity.model.valobj.GroupBuyActivityDiscountVO;
-import com.hb.domain.activity.model.valobj.SCSkuActivityVO;
 import com.hb.domain.activity.service.IIndexGroupBuyMarketService;
 import com.hb.domain.trade.model.entity.MarketPayOrderEntity;
 import com.hb.domain.trade.model.entity.PayActivityEntity;
@@ -16,12 +15,12 @@ import com.hb.domain.trade.model.entity.PayDiscountEntity;
 import com.hb.domain.trade.model.entity.UserEntity;
 import com.hb.domain.trade.model.valobj.GroupBuyProgressVO;
 import com.hb.domain.trade.service.ITradeOrderService;
-import com.hb.domain.trade.service.TradeOrderService;
 import com.hb.types.enums.ResponseCode;
 import com.hb.types.exception.AppException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -40,6 +39,12 @@ public class MarketTradeController implements IMarketTradeService {
     @Resource
     private ITradeOrderService tradeOrderService;
 
+    /**
+     * 拼团营销锁单
+     * @param lockMarketPayOrderRequestDTO
+     * @return
+     */
+    @PostMapping("lock_market_pay_order")
     @Override
     public Response<LockMarketPayOrderResponseDTO> lockMarketPayOrder(LockMarketPayOrderRequestDTO lockMarketPayOrderRequestDTO) {
         try {
@@ -110,6 +115,15 @@ public class MarketTradeController implements IMarketTradeService {
                     .goodsId(goodsId)
                     .activityId(activityId)
                     .build());
+
+
+            // 人群限定
+            if(!trialBalanceEntity.getIsVisible() || !trialBalanceEntity.getIsEnable()) {
+                return Response.<LockMarketPayOrderResponseDTO>builder()
+                        .code(ResponseCode.E0007.getCode())
+                        .info(ResponseCode.E0007.getInfo())
+                        .build();
+            }
 
             GroupBuyActivityDiscountVO groupBuyActivityDiscountVO = trialBalanceEntity.getGroupBuyActivityDiscountVO();
 

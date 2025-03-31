@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
  * Redis 服务 - Redisson
  */
 @Service("redissonService")
-public class RedissonService implements IRedisService{
+public class RedissonService implements IRedisService {
 
     @Resource
     private RedissonClient redissonClient;

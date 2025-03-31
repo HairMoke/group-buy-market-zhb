@@ -35,6 +35,7 @@ public class ITagServiceTest {
         // 是否存在
         log.info("xiaofuge 存在，预期结果为 true，测试结果:{}", bitSet.get(redisService.getIndexFromUserId("xiaofuge")));
         log.info("gudebai 不存在，预期结果为 false，测试结果:{}", bitSet.get(redisService.getIndexFromUserId("gudebai")));
+        log.info("xfg04 存在，预期结果为 true，测试结果:{}", bitSet.get(redisService.getIndexFromUserId("xfg04")));
     }
 
 

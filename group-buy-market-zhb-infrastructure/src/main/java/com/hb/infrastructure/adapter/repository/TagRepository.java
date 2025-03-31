@@ -81,10 +81,10 @@ public class TagRepository implements ITagRepository {
 
     @Override
     public void updateCrowdTagsStatistics(String tagId, int count) {
-        CrowdTags crowdTags = new CrowdTags();
-        crowdTags.setTagId(tagId);
-        crowdTags.setStatistics(count);
+        CrowdTags crowdTagsReq = new CrowdTags();
+        crowdTagsReq.setTagId(tagId);
+        crowdTagsReq.setStatistics(count);
 
-        crowdTagsDao.updateCrowdTagsStatistics(crowdTags);
+        crowdTagsDao.updateCrowdTagsStatistics(crowdTagsReq);
     }
 }

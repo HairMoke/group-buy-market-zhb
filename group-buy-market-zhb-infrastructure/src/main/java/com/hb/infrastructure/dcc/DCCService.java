@@ -16,7 +16,7 @@ public class DCCService {
     private String downgradeSwitch;
 
     /**
-     * 切量开关
+     * 切量开关(0是全部关闭，100是全部开放)
      */
     @DCCValue("cutRange:100")
     private String cutRange;

@@ -49,8 +49,6 @@ public class RedisClientConfig {
                 .setKeepAlive(properties.isKeepAlive())
         ;
 
-//        System.out.println("config: " + JSON.toJSONString(config, SerializerFeature.PrettyFormat));
-
         return Redisson.create(config);
     }
 

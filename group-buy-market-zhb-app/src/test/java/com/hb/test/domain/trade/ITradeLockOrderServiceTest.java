@@ -24,7 +24,7 @@ import javax.annotation.Resource;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class ITradeOrderServiceTest {
+public class ITradeLockOrderServiceTest {
 
     @Resource
     private IIndexGroupBuyMarketService indexGroupBuyMarketService;

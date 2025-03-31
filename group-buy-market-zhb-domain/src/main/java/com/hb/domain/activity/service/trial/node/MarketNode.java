@@ -70,7 +70,7 @@ public class MarketNode extends AbstractGroupBuyMarketSupport<MarketProductEntit
         dynamicContext.setGroupBuyActivityDiscountVO(groupBuyActivityDiscountVOFutureTask.get(timeout, TimeUnit.MINUTES));
         dynamicContext.setSkuVO(skuVOFutureTask.get(timeout, TimeUnit.MINUTES));
 
-        log.info("拼团商品查询是算服务-MarketNode userId:{} 异步线程加载数据「GroupBuyActivityDiscountVO、SkuVO」完成 ", requestParameter.getUserId());
+        log.info("拼团商品查询试算服务-MarketNode userId:{} 异步线程加载数据「GroupBuyActivityDiscountVO、SkuVO」完成 ", requestParameter.getUserId());
     }
 
     /**
