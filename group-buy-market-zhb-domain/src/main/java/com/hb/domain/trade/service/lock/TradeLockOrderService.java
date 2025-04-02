@@ -4,7 +4,7 @@ import com.hb.domain.trade.adapter.repository.ITradeRepository;
 import com.hb.domain.trade.model.aggregate.GroupBuyOrderAggregate;
 import com.hb.domain.trade.model.entity.*;
 import com.hb.domain.trade.model.valobj.GroupBuyProgressVO;
-import com.hb.domain.trade.service.ITradeOrderService;
+import com.hb.domain.trade.service.ITradeLockOrderService;
 import com.hb.domain.trade.service.lock.factory.TradeLockRuleFilterFactory;
 import com.hb.types.design.framework.link.model2.chain.BusinessLinkedList;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +18,7 @@ import javax.annotation.Resource;
  */
 @Slf4j
 @Service
-public class TradeOrderService implements ITradeOrderService {
+public class TradeLockOrderService implements ITradeLockOrderService {
 
     @Resource
     private ITradeRepository repository;

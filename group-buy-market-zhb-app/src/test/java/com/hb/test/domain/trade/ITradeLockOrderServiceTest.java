@@ -9,7 +9,7 @@ import com.hb.domain.trade.model.entity.MarketPayOrderEntity;
 import com.hb.domain.trade.model.entity.PayActivityEntity;
 import com.hb.domain.trade.model.entity.PayDiscountEntity;
 import com.hb.domain.trade.model.entity.UserEntity;
-import com.hb.domain.trade.service.ITradeOrderService;
+import com.hb.domain.trade.service.ITradeLockOrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,7 +30,7 @@ public class ITradeLockOrderServiceTest {
     private IIndexGroupBuyMarketService indexGroupBuyMarketService;
 
     @Resource
-    private ITradeOrderService tradeOrderService;
+    private ITradeLockOrderService tradeOrderService;
 
     @Test
     public void test_lockMarketPayOrder() throws Exception{
