@@ -21,7 +21,8 @@ public class GroupBuyNotifyJob {
     @Resource
     private ITradeSettlementOrderService tradeSettlementOrderService;
 
-    @Scheduled(cron = "0/15 * * * * ?")
+//    @Scheduled(cron = "0/15 * * * * ?")
+    @Scheduled(cron = "0 0 * * * ?")  // 临时调整为每小时的0分0秒执行
     public void exec(){
         try{
             Map<String, Integer> result = tradeSettlementOrderService.execSettlementNotifyJob();

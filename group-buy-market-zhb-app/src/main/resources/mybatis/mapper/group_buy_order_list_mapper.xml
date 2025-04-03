@@ -79,10 +79,9 @@
     </select>
 
     <select id="queryInProgressUserGroupBuyOrderDetailListByActivityId" parameterType="java.lang.Long" resultMap="dataMap">
-        select ANY_VALUE(user_id), team_id, ANY_VALUE(out_trade_no)
+        select user_id, team_id, out_trade_no
         from group_buy_order_list
         where activity_id = #{activityId}
           and status in (0, 1)
-        group by team_id
     </select>
 </mapper>
