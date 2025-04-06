@@ -43,6 +43,17 @@ public class TagService implements ITagService{
             add("xfg07");
             add("xfg08");
             add("xfg09");
+            add("xfg10");
+            add("xiaofuge01");
+            add("xiaofuge02");
+            add("xiaofuge03");
+            add("xiaofuge04");
+            add("xiaofuge05");
+            add("xiaofuge06");
+            add("xiaofuge07");
+            add("xiaofuge08");
+            add("xiaofuge09");
+            add("xiaofuge10");
         }};
 
         // 4. 一般人群标签的处理在公司中，会有专门的数据数仓团队通过脚本方式写入到数据库，就不用这样一个个或者批次来写。
