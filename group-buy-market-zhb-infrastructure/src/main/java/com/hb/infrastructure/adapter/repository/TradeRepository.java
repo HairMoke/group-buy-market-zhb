@@ -18,6 +18,7 @@ import com.hb.infrastructure.dao.po.GroupBuyOrder;
 import com.hb.infrastructure.dao.po.GroupBuyOrderList;
 import com.hb.infrastructure.dao.po.NotifyTask;
 import com.hb.infrastructure.dcc.DCCService;
+import com.hb.infrastructure.redis.IRedisService;
 import com.hb.types.enums.ActivityStatusEnumVO;
 import com.hb.types.enums.GroupBuyOrderEnumVO;
 import com.hb.types.enums.ResponseCode;
@@ -35,6 +36,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 交易仓储服务
@@ -61,6 +63,9 @@ public class TradeRepository implements ITradeRepository {
 
     @Value("${spring.rabbitmq.config.producer.topic_team_success.routing_key}")
     private String topic_team_success;
+
+    @Resource
+    private IRedisService redisService;
 
     /**
      * 查询，未被支付消费完成的营销优惠订单
@@ -331,5 +336,39 @@ public class TradeRepository implements ITradeRepository {
     @Override
     public int updateNotifyTaskStatusRetry(String teamId) {
         return notifyTaskDao.updateNotifyTaskStatusRetry(teamId);
+    }
+
+    @Override
+    public boolean occupyTeamStock(String teamStockKey, String recoveryTeamStockKey, Integer target, Integer validTime) {
+        // 失败恢复量
+        Long recoveryCount = redisService.getAtomicLong(recoveryTeamStockKey);
+        recoveryCount = null == recoveryCount ? 0 : recoveryCount;
+
+        // 1. incr得到值， 与总量和恢复量做对比，恢复量为系统失败时候记录的量
+        // 2. 从有组队开始，相当于已经有了一个占用量，所以要+1
+        long occupy = redisService.incr(teamStockKey) + 1;
+
+        if(occupy > target + recoveryCount) {
+            redisService.setAtomicLong(teamStockKey, target);
+            return false;
+        }
+
+        // 给每个产生的值加锁为兜底设计，虽然incr操作是原子的，基本不会产生一样的值，但在实际生产中，遇到过集群的运维配置问题，以及业务运营配置数据问题，导致incr得到的值相同。
+        // 2. validTime + 60分钟，是一个延后时间的设计，让数据保留时间稍微长一些，便于排查问题。
+        String lockKey = teamStockKey + Constants.UNDERLINE + occupy;
+        Boolean lock = redisService.setNx(lockKey, validTime + 60, TimeUnit.MINUTES);
+
+        if(!lock) {
+            log.info("组队库存加锁失败 {}" , lockKey);
+        }
+
+        return lock;
+    }
+
+    @Override
+    public void recoveryTeamStock(String recoveryTeamStockKey, Integer validTime) {
+        // 首次组队拼团，是没有teamId的，所以不需要这个做处理
+        if(StringUtils.isBlank(recoveryTeamStockKey)) return;
+        redisService.incr(recoveryTeamStockKey);  // 做incr记录库存恢复量。
     }
 }

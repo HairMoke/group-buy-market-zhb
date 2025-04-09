@@ -46,6 +46,7 @@ public class TradeLockOrderService implements ITradeLockOrderService {
         TradeLockRuleFilterBackEntity tradeLockRuleFilterBackEntity = tradeRuleFilter.apply(TradeLockRuleCommandEntity.builder()
                 .activityId(payActivityEntity.getActivityId())
                 .userId(userEntity.getUserId())
+                .teamId(payActivityEntity.getTeamId())
                 .build(), new TradeLockRuleFilterFactory.DynamicContext());
 
         // 已参与拼团量 - 用于构建数据库唯一索引使用，确保用户只能在一个活动上参与固定的次数
@@ -59,7 +60,14 @@ public class TradeLockOrderService implements ITradeLockOrderService {
                 .userTakeOrderCount(userTakeOrderCount)
                 .build();
 
-        // 锁定聚合订单 - 这会用户只是下单还没有支付，后续会有2个流程： 支付成功、 超时未支付（回退）
-        return repository.lockMarketPayOrder(groupBuyOrderAggregate);
+        try {
+            // 锁定聚合订单 - 这会用户只是下单还没有支付，后续会有2个流程： 支付成功、 超时未支付（回退）
+            return repository.lockMarketPayOrder(groupBuyOrderAggregate);
+        } catch (Exception e) {
+            // 记录失败恢复量
+            repository.recoveryTeamStock(tradeLockRuleFilterBackEntity.getRecoveryTeamStockKey(), payActivityEntity.getValidTime());
+            throw e;
+        }
+
     }
 }
